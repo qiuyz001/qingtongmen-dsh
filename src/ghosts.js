@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { makeBannerTexture, makeFaceTexture, makeGlowTexture, mulberry32 } from './textures.js';
+import { riftFloorHeight } from './rift.js';
 
 const ROWS = 12;
 const COLS = [-2.55, -0.85, 0.85, 2.55];
@@ -350,7 +351,10 @@ export class GhostProcession {
     // narrow into the doorway as they reach it
     const narrow = THREE.MathUtils.smoothstep(z, -30, -54);
     x *= 1 - narrow * 0.25;
-    return { x, y: 0.05 + bob, z, yaw, active: active && z > -63 };
+    // v3: the valley floor is now ridged/steps 1-3 m high; sample it so the
+    // procession stands on the bone carpet instead of sinking into the rock.
+    const ground = riftFloorHeight(x, z);
+    return { x, y: ground + 0.05 + bob, z, yaw, active: active && z > -63 };
   }
 
   setTime(t) {
@@ -468,9 +472,9 @@ export const GHOST_TIMELINE = {
     { t: 0, p: [34, 9.5, 40], l: [0, 13, -50], fov: 46 },
     { t: 7, p: [28, 7.5, 30], l: [0, 13, -50], fov: 46 },
     { t: 12, p: [13.5, 6.4, 25], l: [0, 12, -50], fov: 50 },
-    { t: 18, p: [10, 4.5, 26], l: [0, 8, -34], fov: 48 },
-    { t: 23, p: [7, 3.4, 23], l: [-0.8, 3.0, 14], fov: 48 },
-    { t: 28, p: [8, 3.8, 18], l: [0, 5, -22], fov: 48 },
+    { t: 18, p: [12, 4.8, 28], l: [0, 8, -34], fov: 48 },
+    { t: 23, p: [19, 5.4, 25], l: [-2.0, 3.6, 10], fov: 50 },
+    { t: 28, p: [15, 5.0, 20], l: [0, 5, -16], fov: 48 },
     { t: 34, p: [20, 5.8, 17], l: [0, 9, -46], fov: 47 },
     { t: 44, p: [29, 7.4, 24], l: [0, 12, -50], fov: 47 },
     { t: 52, p: [34, 9.2, 34], l: [0, 13, -50], fov: 46 },

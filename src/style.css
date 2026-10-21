@@ -101,6 +101,14 @@ blockquote em { font-style: normal; color: var(--bronze); }
 .node-extra:empty { display: none; }
 .extra-row { display: flex; align-items: center; gap: 8px; font-size: 10px; color: rgba(170,185,175,.65); letter-spacing: .05em; }
 .extra-row b { color: var(--bronze); font-weight: 500; }
+.rift-beat { display: flex; gap: 7px; margin: 2px 0 2px; }
+.rift-beat .beat {
+  flex: 1; padding: 7px 8px; cursor: pointer; font-family: var(--sans); font-size: 9.5px;
+  letter-spacing: .13em; color: rgba(170,195,182,.68); background: rgba(12,22,20,.55);
+  border: 1px solid rgba(127,179,162,.24); border-radius: 2px; transition: all .2s;
+}
+.rift-beat .beat:hover { border-color: rgba(150,220,195,.65); color: #d7e5da; }
+.rift-beat .beat.active { color: #0d1512; background: var(--jade); border-color: var(--jade); }
 .replay {
   align-self: flex-start; margin-top: 2px; padding: 8px 15px; cursor: pointer;
   color: var(--jade); border: 1px solid rgba(127,179,162,.35); background: rgba(20,40,36,.35);

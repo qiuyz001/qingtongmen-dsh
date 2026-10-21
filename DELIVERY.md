@@ -1,12 +1,13 @@
-# DELIVERY — 青铜门 · 长白山（DSH / Flash 1017）
+# DELIVERY — 青铜门 · 长白山（DSH / Flash 1017 · v3）
 
 ## 可访问链接
 
-**https://subdued-jersey-w7n6d.ship.place/**
+**https://tall-curler-4eyhu.ship.place/**
 
 - 平台：ship.page 免费 drop（Vite `dist/`：index.html + assets）
-- 到期：**2026-11-19 19:30（Asia/Shanghai）**（API `expires_at` 2026-11-19T11:30:55Z）
+- 到期：**2026-11-20 14:36（Asia/Shanghai）**（API `expires_at` 2026-11-20T06:36:12Z）
 - 认领延长：见本目录私有文件 `ship-response.json` 的 `claim_url`（含 token，勿写入 GitHub / README / 公开仓库）
+- 旧链接（v1）：https://subdued-jersey-w7n6d.ship.place/ （仍可能可开，但不是本轮产物）
 
 ## 本地路径（Grok Bot 机器）
 
@@ -14,39 +15,38 @@
 |---|---|
 | 源码 | `/workspace/qingtongmen/dsh/` |
 | 构建产物 | `/workspace/qingtongmen/dsh/dist/` |
-| 截图 | `/workspace/qingtongmen/dsh/shots/`（11 张 + stats.json + console.json） |
-| 自审 | `REVIEW.md` |
+| 截图 | `/workspace/qingtongmen/dsh/shots/`（13 张 + stats.json + console.json） |
+| 自审 | `REVIEW.md`（含 v3 节） |
 | 需求 | `/workspace/qingtongmen/BRIEF.md` |
-| 部署包 | `qingtongmen-ship.zip` |
+| 部署包 | `qingtongmen-ship-v3.zip` |
 | 部署响应（含认领 token） | `ship-response.json` |
 
-## 独立验收（2026-10-20 19:30 Asia/Shanghai）
+## 独立验收（2026-10-21 14:36 Asia/Shanghai · DONE-v3）
 
 | 验收项 | 结果 | 证据 |
 |---|---|---|
-| `pnpm build` | 通过 | 本机重跑成功；仅 chunk-size 警告；dist 1.3M |
+| `pnpm build` | 通过 | Vite build 成功；仅 chunk-size 警告；JS ~1.29 MB |
 | 控制台 0 error | 通过 | `shots/console.json` total=0，pageErrors=[] |
-| 7 节点截图 stats | 通过 | `shots/stats.json` 11/11 PASS；mean 12.54–62.73；max black 0.542；max over 0.0002 |
-| 门 30×60 m | 通过 | node4 尺度线 + 1.75m 剪影 + 侧栏尺度卡 |
-| 人皮封条 | 通过 | `rift.js` 门缝石化人皮背衬；节点 6 时间线 T&lt;7.9s 可见并爆裂 |
-| 淡蓝雾 | 通过 | node6-open / node6-enter |
-| 阴兵四人一行 | 通过 | node6 / node6-enter；12×4 队列 |
-| 鬼玺 + 黑金古刀 | 通过 | node6 HUD「张起灵 · 黑金古刀 · 鬼玺」+ 角色模型 |
-| 门开→入门→闭合 | 通过 | node6-open / enter / close；52s 可重播 |
-| 每节点原文卡 | 通过 | 侧栏 chapter/quote/source；节点 5 标「推演」 |
-
-模型：全程 `deepseek-flash`（Flash 1017）+ reasoningEffort max（见 `flash-max.patch.yml`）。未启动修补轮。
+| 7 节点 + 3A/3B 截图 stats | 通过 | `shots/stats.json` 13/13 PASS；mean 15.3–69.27；max black 0.590；over 全 0 |
+| 节点 1 雪埋竖缝 + 暖光 + 30m 标尺 | 通过（风格化） | `shots/node1.png` |
+| 节点 2 地热岩缝 | 通过 | `shots/node2.png` |
+| 节点 3A/3B 锁链俯视 + 谷底骨毯 + 门纵深 | 通过 | `shots/node3*.png` / `node3-floor.png` |
+| 节点 4–7 同套地面骨层 | 通过 | node4–7 与 3 共用 Rift |
+| 门 30×60 m / 人皮 / 蓝雾 / 阴兵 / 鬼玺+刀 / 开→入→闭 | 通过 | node4 / node6* |
+| 模型 | deepseek-flash（Flash 1017）+ reasoningEffort max | `flash-max.patch.yml` |
 
 ## 已知问题 / 取舍
 
-- 阴兵与温泉为风格化低模；近景精度不及离线渲染。
-- 节点 2 温泉偏「发光泉眼」；节点 3 刻意极暗（手电小光池），照明弹帧才照亮谷底。
-- 门纹为商周青铜器程序化推演（界面已标「推演」），非影视造型。
-- 未做真实 GPU 60fps 实测；提供 quality 降级。
-- JS 单包约 1.26 MB（gzip ~326 KB），Vite chunk-size 提示未拆包。
+- 崖壁与阴兵仍是程序化低模；近看棱角与真实扫描材质有差距。
+- 节点 1 竖缝约 13 m 高（非贯通 30 m 一线天），暖光来自下部地热喉道。
+- 60–70 m 外门面主体仍偏平面；厚度主要靠 6 m 门框、门环、门楣浮雕与掠射阴影建立。
+- 骨/岩为大量 InstancedMesh 低模，近景可见重复。
+- 无头截图使用 SwiftShader，不代表真实 GPU 60fps；已保留 quality 降级。
+- JS 单包约 1.29 MB（gzip ~341 KB），Vite chunk-size 提示未拆包。
 
 ## 代表截图
 
+- `/workspace/qingtongmen/dsh/shots/node1.png` — 雪谷竖缝暖光 + 30m 标尺
+- `/workspace/qingtongmen/dsh/shots/node3-floor.png` — 谷底骨毯 + 门框纵深
 - `/workspace/qingtongmen/dsh/shots/node4.png` — 青铜门全景 + 30×60 尺度
 - `/workspace/qingtongmen/dsh/shots/node6-enter.png` — 阴兵四人一行入门 + 蓝雾
-- `/workspace/qingtongmen/dsh/shots/node6.png` — 「再见」+ 张起灵标注

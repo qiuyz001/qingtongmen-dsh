@@ -8,7 +8,7 @@ const softSprite = `
 
 /* ---------------- GPU snowfall ---------------- */
 export class Snowfall {
-  constructor({ count = 4200, box = [120, 55, 120], size = 1.5, color = 0xcfe0e6, opacity = 0.7, speed = 3.2, wind = 5.0 } = {}) {
+  constructor({ count = 4200, box = [120, 55, 120], size = 1.5, color = 0xcfe0e6, opacity = 0.7, speed = 3.2, wind = 5.0, maxSize = 9.0 } = {}) {
     const rnd = mulberry32(8181 + count);
     const pos = new Float32Array(count * 3);
     const speedA = new Float32Array(count);
@@ -33,9 +33,10 @@ export class Snowfall {
         uTime: { value: 0 }, uBox: { value: new THREE.Vector3(...box) },
         uPixelRatio: { value: 1 }, uColor: { value: new THREE.Color(color) },
         uOpacity: { value: opacity }, uWind: { value: wind }, uSizeScale: { value: 1 },
+        uMaxSize: { value: maxSize },
       },
       vertexShader: `
-        uniform float uTime, uPixelRatio, uWind, uSizeScale, uOpacity;
+        uniform float uTime, uPixelRatio, uWind, uSizeScale, uOpacity, uMaxSize;
         uniform vec3 uBox;
         attribute float aSpeed, aSize, aPhase;
         varying float vA;
@@ -47,7 +48,7 @@ export class Snowfall {
           vec4 mv = modelViewMatrix * vec4(p, 1.0);
           gl_Position = projectionMatrix * mv;
           float d = max(1.0, -mv.z);
-          gl_PointSize = clamp(aSize * uPixelRatio * uSizeScale * 190.0 / d, 1.0, 9.0);
+          gl_PointSize = clamp(aSize * uPixelRatio * uSizeScale * 190.0 / d, 1.0, uMaxSize);
           vA = uOpacity * (0.35 + 0.65*smoothstep(uBox.x*0.5, 4.0, d)) * smoothstep(2.0, 9.0, d);
         }`,
       fragmentShader: `
@@ -72,14 +73,17 @@ export class Snowfall {
 
 /* ---------------- wind streaks (blizzard) ---------------- */
 export class SnowStreaks {
-  constructor({ count = 260, box = [110, 40, 110], color = 0xa9c4cc, opacity = 0.35 } = {}) {
-    const rnd = mulberry32(555);
+  constructor({
+    count = 260, box = [110, 40, 110], color = 0xa9c4cc, opacity = 0.35,
+    length = [0.7, 1.9], speed = 15, fall = 7, turbulence = 2.0,
+  } = {}) {
+    const rnd = mulberry32(555 + count);
     const pos = new Float32Array(count * 6);
     const seed = new Float32Array(count * 2);
     for (let i = 0; i < count; i++) {
       const x = (rnd() - 0.5) * box[0], y = (rnd() - 0.5) * box[1], z = (rnd() - 0.5) * box[2];
-      const len = 0.7 + rnd() * 1.9;
-      pos.set([x, y, z, x + len, y - 0.12, z], i * 6);
+      const len = length[0] + rnd() * (length[1] - length[0]);
+      pos.set([x, y, z, x + len, y - len * 0.13, z + (rnd() - 0.5) * len * 0.18], i * 6);
       seed.set([rnd() * 100, rnd()], i * 2);
     }
     const geo = new THREE.BufferGeometry();
@@ -87,19 +91,22 @@ export class SnowStreaks {
     geo.setAttribute('aSeed', new THREE.BufferAttribute(seed, 2));
     this.material = new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
-      uniforms: { uTime: { value: 0 }, uBox: { value: new THREE.Vector3(...box) }, uColor: { value: new THREE.Color(color) }, uOpacity: { value: opacity } },
+      uniforms: {
+        uTime: { value: 0 }, uBox: { value: new THREE.Vector3(...box) }, uColor: { value: new THREE.Color(color) },
+        uOpacity: { value: opacity }, uSpeed: { value: speed }, uFall: { value: fall }, uTurb: { value: turbulence },
+      },
       vertexShader: `
-        uniform float uTime; uniform vec3 uBox;
+        uniform float uTime, uSpeed, uFall, uTurb; uniform vec3 uBox;
         attribute vec2 aSeed;
         varying float vA;
         void main(){
           vec3 p = position;
-          p.y = mod(p.y - uTime*(7.0+aSeed.y*4.0) + uBox.y*0.5, uBox.y) - uBox.y*0.5;
-          p.x = mod(p.x + uTime*(15.0+aSeed.y*8.0) + uBox.x*0.5, uBox.x) - uBox.x*0.5;
-          p.z = mod(p.z + cos(uTime+aSeed.x)*2.0 + uBox.z*0.5, uBox.z) - uBox.z*0.5;
+          p.y = mod(p.y - uTime*(uFall+aSeed.y*uFall*0.55) + uBox.y*0.5, uBox.y) - uBox.y*0.5;
+          p.x = mod(p.x + uTime*(uSpeed+aSeed.y*uSpeed*0.5) + uBox.x*0.5, uBox.x) - uBox.x*0.5;
+          p.z = mod(p.z + cos(uTime*0.8+aSeed.x)*uTurb + uBox.z*0.5, uBox.z) - uBox.z*0.5;
           vec4 mv = modelViewMatrix*vec4(p,1.0);
           gl_Position = projectionMatrix*mv;
-          vA = smoothstep(90.0, 6.0, -mv.z) * smoothstep(3.0, 14.0, -mv.z);
+          vA = smoothstep(max(uBox.z*0.62, 80.0), 6.0, -mv.z) * smoothstep(2.5, 11.0, -mv.z);
         }`,
       fragmentShader: `
         uniform vec3 uColor; uniform float uOpacity; varying float vA;
@@ -109,6 +116,49 @@ export class SnowStreaks {
     this.lines.frustumCulled = false;
   }
   update(t) { this.material.uniforms.uTime.value = t; }
+}
+
+/* ---------------- wind-driven snow veils (screen-crossing bands) ---------------- */
+export class SnowVeil {
+  constructor({ count = 14, box = [130, 40, 110], color = 0xdfeef2, opacity = 0.09 } = {}) {
+    this.group = new THREE.Group();
+    this.items = [];
+    const tex = makeMistTexture(15, false);
+    const rnd = mulberry32(4411);
+    this.box = box;
+    for (let i = 0; i < count; i++) {
+      const mat = new THREE.SpriteMaterial({
+        map: tex, color, transparent: true, opacity: 0, depthWrite: false,
+        blending: THREE.NormalBlending, fog: false,
+      });
+      const s = new THREE.Sprite(mat);
+      const item = {
+        sprite: s,
+        x: (rnd() - 0.5) * box[0],
+        y: (rnd() - 0.15) * box[1],
+        z: (rnd() - 0.5) * box[2],
+        sx: 26 + rnd() * 34,
+        sy: 6 + rnd() * 9,
+        phase: rnd() * 20,
+        speed: 16 + rnd() * 18,
+        base: opacity * (0.5 + rnd()),
+      };
+      s.scale.set(item.sx, item.sy, 1);
+      s.position.set(item.x, item.y, item.z);
+      s.renderOrder = 6;
+      this.group.add(s);
+      this.items.push(item);
+    }
+  }
+  update(t) {
+    const { box } = this;
+    for (const it of this.items) {
+      const x = ((it.x + t * it.speed + box[0] * 0.5) % box[0]) - box[0] * 0.5;
+      const y = it.y + Math.sin(t * 0.5 + it.phase) * 2.4;
+      it.sprite.position.set(x, y, it.z);
+      it.sprite.material.opacity = it.base * (0.55 + 0.45 * Math.sin(t * 0.7 + it.phase));
+    }
+  }
 }
 
 /* ---------------- volumetric-ish mist quads ---------------- */
@@ -267,7 +317,7 @@ export class DustMotes {
 
 /* ---------------- flare ---------------- */
 export class Flare {
-  constructor(scene) {
+  constructor(scene, { start = [16, 12, 44], peak = [4, 32, 8], intensity = 1800 } = {}) {
     this.scene = scene;
     this.group = new THREE.Group();
     this.group.visible = false;
@@ -284,8 +334,11 @@ export class Flare {
     this.light.position.set(0, 0, 0);
     this.group.add(this.light);
     this.time = -1;
-    this.start = new THREE.Vector3(16, 0.5, 40);
-    this.peak = new THREE.Vector3(6, 22, 18);
+    this.level = 0;
+    this.active = false;
+    this.power = intensity;
+    this.start = new THREE.Vector3(...start);
+    this.peak = new THREE.Vector3(...peak);
     // sparks
     const N = 200;
     const rnd = mulberry32(991);
@@ -323,13 +376,15 @@ export class Flare {
   }
   trigger() {
     this.time = 0;
+    this.active = true;
+    this.level = 0;
     this.group.visible = true;
     this.sparkMat.uniforms.uOrigin.value.copy(this.start);
     this.sparkMat.uniforms.uActive.value = 1;
   }
-  reset() { this.time = -1; this.group.visible = false; this.light.intensity = 0; }
+  reset() { this.time = -1; this.level = 0; this.active = false; this.group.visible = false; this.light.intensity = 0; }
   update(dt) {
-    if (this.time < 0) return;
+    if (this.time < 0) { this.level = 0; return; }
     this.time += dt;
     const t = this.time;
     const k = Math.min(1, t / 1.35);
@@ -338,10 +393,11 @@ export class Flare {
     p.y += Math.sin(t * 1.1) * 0.4;
     this.group.position.copy(p);
     let intensity = 0;
-    if (t < 0.9) intensity = 1900 * (t / 0.9);
-    else if (t < 5.5) intensity = 1900 + Math.sin(t * 23) * 160 + Math.sin(t * 7.1) * 90;
-    else intensity = Math.max(0, 1900 * (1 - (t - 5.5) / 3.2));
+    if (t < 0.9) intensity = this.power * (t / 0.9);
+    else if (t < 5.5) intensity = this.power * (1 + Math.sin(t * 23) * 0.07 + Math.sin(t * 7.1) * 0.04);
+    else intensity = Math.max(0, this.power * (1 - (t - 5.5) / 3.2));
     this.light.intensity = intensity;
+    this.level = t < 0.9 ? t / 0.9 : t < 5.5 ? 1 : Math.max(0, 1 - (t - 5.5) / 3.2);
     const life = Math.max(0, 1 - t / 8.6);
     this.spriteMat.opacity = Math.min(1, t * 3) * life;
     this.glowMat.opacity = 0.5 * Math.min(1, t * 2) * life;
@@ -350,7 +406,7 @@ export class Flare {
     this.glow.scale.set(16 + (1 - life) * 12, 16 + (1 - life) * 12, 1);
     this.sparkMat.uniforms.uTime.value = t;
     this.sparkMat.uniforms.uActive.value = t < 2.4 ? 1 : 0;
-    if (t > 9) { this.time = -1; this.group.visible = false; this.light.intensity = 0; }
+    if (t > 9) { this.time = -1; this.level = 0; this.active = false; this.group.visible = false; this.light.intensity = 0; }
   }
 }
 

@@ -40,28 +40,36 @@ const NODES = {
     title: '雪谷入口', env: 'valley', envName: '雪谷', short: '雪谷',
     chapter: '大结局（下）第二十九章「故地」',
     quote: '「雪谷」「三十米高的悬崖」「暴风雪」',
-    note: '被雪掩埋的缝隙就在崖底，缝隙后方是温泉。入口段落在本章由吴邪、胖子重赴长白山的行程中引出。',
+    note: '镜头在谷底斜仰：三十米崖壁竖直压下来。雪堆半掩一道约七米宽、十三米深的竖缝，裂缝里透出暖光与蒸汽；崖壁由噪声位移、分层岩脊与法线贴图构成。1.70 m 人影与断树是比例尺。',
     source: '大结局（下）第二十九章 · 网络转载', url: SRC.finale,
-    pos: new THREE.Vector3(VALLEY_ORIGIN.x + 24, 3.0, 62), target: new THREE.Vector3(VALLEY_ORIGIN.x - 2, 11.5, -29), fov: 55,
-    extra: '<div class="extra-row"><b>入口</b> 雪谷 · 三十米崖壁 · 暴风雪</div><div class="extra-row"><b>去处</b> 崖底被雪埋住的缝隙</div>',
+    pos: new THREE.Vector3(VALLEY_ORIGIN.x + 5.0, 2.2, 8.0), target: new THREE.Vector3(VALLEY_ORIGIN.x - 0.6, 14.5, -27.0), fov: 58,
+    extra: '<div class="extra-row"><b>构图</b> 崖底斜仰 · 30 m 竖直崖壁</div><div class="extra-row"><b>缝口</b> 雪堆半掩竖缝 · 缝内暖光/蒸汽</div><div class="extra-row"><b>比例</b> 1.70 m 人影 · 30 m 崖面标尺</div><div class="extra-row"><b>天气</b> 侧向暴风雪 · 低能见度 · 前景雪粒</div>',
   },
   2: {
     title: '岩缝温泉', env: 'valley', envName: '岩缝', short: '温泉',
     chapter: '大结局（下）第二十九章「故地」',
     quote: '「被雪掩埋的缝隙」「温泉」',
-    note: '穿过雪下的窄缝，热气从岩壁深处涌出。此段是进入地下裂谷前的最后一个暖处。',
+    note: '原文此处只写「温泉」。按大结局「雪谷→温泉→裂谷」的缝隙语境，本场景处理为<b>地热岩缝</b>：窄陡下爬、岩壁湿亮发烫、硫磺雾从壁缝与地缝冒出；积水只是底部一汪浅水，不是景区温泉。<span class="tag">场景处理</span>',
     source: '大结局（下）第二十九章 · 网络转载', url: SRC.finale,
-    pos: new THREE.Vector3(VALLEY_ORIGIN.x + 0.9, 1.75, -31.5), target: new THREE.Vector3(VALLEY_ORIGIN.x - 0.5, 1.0, -49.5), fov: 62,
-    extra: '<div class="extra-row"><b>环境</b> 窄岩缝 · 温泉蒸汽 · 顶隙冷光</div><div class="extra-row"><b>交互</b> 底部按钮或 ←/→ 继续深入</div>',
+    pos: new THREE.Vector3(VALLEY_ORIGIN.x + 0.0, 4.4, -25.5), target: new THREE.Vector3(VALLEY_ORIGIN.x + 0.15, 0.4, -44.0), fov: 66,
+    extra: '<div class="extra-row"><b>地热岩缝</b> 湿亮岩壁 · 约三十度下爬</div><div class="extra-row"><b>热源</b> 壁缝 / 地缝蒸汽 · 硫磺雾 · 石头烫手</div><div class="extra-row"><b>水</b> 底部浅积水（弱化，不设泉眼）</div>',
   },
   3: {
     title: '地下裂谷', env: 'rift', envName: '裂谷', short: '裂谷',
     chapter: '云顶天宫篇 第五十章「守护神」的巢穴',
     quote: '「这条地下裂谷太大」<br>「谷底…全是极度不平整的黑色的火山岩块」<br>「从上面跌落的尸骨，层层叠叠」',
-    note: '黑暗中只有手电。照明弹可以把整个谷底照得清清楚楚，也照出那些层层叠叠的尸骨。',
+    note: '两拍：3A 挂在尸链间从裂谷高处下望，按 F 打照明弹，整谷骨堆与角砾岩瞬间照亮；3B 切到谷底低机位，踩着骨头走向嵌在火山岩崖壁里的门。',
     source: '三叶屋 · 第五十章', url: SRC.sanyewu,
-    pos: new THREE.Vector3(42, 17, 54), target: new THREE.Vector3(12, 7, -24), fov: 54,
-    extra: '<div class="extra-row"><b>手电</b> 移动鼠标，光柱跟随</div><div class="extra-row"><b>照明弹</b> 按 F 或点击右下按钮</div>',
+    pos: new THREE.Vector3(17, 34, 38), target: new THREE.Vector3(-1, 6, -44), fov: 56,
+    posWide: new THREE.Vector3(31, 38, 45), targetWide: new THREE.Vector3(0, 5, -42), fovWide: 58,
+    posFloor: new THREE.Vector3(10.5, 4.6, 28), targetFloor: new THREE.Vector3(-2, 10.5, -50), fovFloor: 61,
+    extra: `<div class="rift-beat">
+        <button class="beat active" data-beat="high">3A · 锁链俯视</button>
+        <button class="beat" data-beat="floor">3B · 谷底行走</button>
+      </div>
+      <div class="extra-row"><b>照明弹</b> 按 F / 右下按钮 · 全谷照亮</div>
+      <div class="extra-row"><b>切换</b> 点击 3A / 3B · 或按 B</div>
+      <div class="extra-row"><b>谷底</b> 黑色火山角砾 · 层叠尸骨 · 尸链</div>`,
   },
   4: {
     title: '青铜门 · 全景', env: 'rift', envName: '巨门', short: '巨门',
@@ -69,8 +77,8 @@ const NODES = {
     quote: '「门高在三十米所有，宽度将近六十米」<br>「十层楼这么高」<br>「上万吨重」<br>「看上去竟然像是整体铸造起来的」',
     note: '两扇式青铜巨门嵌在裂谷一侧的崖壁上。画面中的人物剪影高 1.75 米，用作比例尺；门外框上标有 30 m / 60 m 尺度线。',
     source: '三叶屋 · 第五十章', url: SRC.sanyewu,
-    pos: new THREE.Vector3(12, 8.6, 16), target: new THREE.Vector3(14, 15, -52), fov: 48,
-    extra: '<div class="extra-row"><b>尺度</b> 高 30 m · 宽近 60 m · 上万吨重</div><div class="extra-row"><b>比例</b> 人物剪影 1.75 m · 门缝人皮封条</div>',
+    pos: new THREE.Vector3(11, 9.0, 16), target: new THREE.Vector3(2, 14.5, -52), fov: 52,
+    extra: '<div class="extra-row"><b>尺度</b> 高 30 m · 宽近 60 m · 上万吨重</div><div class="extra-row"><b>崖壁</b> 粗糙火山岩 · 角砾门套 · 与节点 3 同一套谷底</div><div class="extra-row"><b>比例</b> 人物剪影 1.75 m · 门缝人皮封条</div>',
   },
   5: {
     title: '门纹 · 特写', env: 'rift', envName: '纹饰', short: '门纹',
@@ -85,7 +93,7 @@ const NODES = {
     title: '阴兵借道', env: 'rift', envName: '借道', short: '借道',
     chapter: '云顶天宫（下）第四十五章 永远无法解开的谜团',
     quote: '「排成一列长队」「四人一行，行走极为整齐」<br>「奇长的人脸…长度要比普通人长一倍」<br>「脸色极度苍白」「好像是纸糊的一样」<br>「一连串鹿角号声从裂谷的一端传来」',
-    note: '人皮封条爆裂、门向外挪开、缝内亮起火光、淡蓝薄雾涌出；张起灵背黑金古刀、右手托鬼玺混在队中，回头说「再见」，随后门合拢。',
+    note: '与节点 3 同一套黑色火山岩谷底与尸骨层。人皮封条爆裂、门向外挪开、缝内亮起火光、淡蓝薄雾涌出；张起灵背黑金古刀、右手托鬼玺混在队中，回头说「再见」，随后门合拢。',
     source: '大道不孤 · 第四十五章', url: SRC.daomu,
     pos: null, target: null, fov: 46,
     extra: `
@@ -100,7 +108,7 @@ const NODES = {
     quote: '「走吧」',
     note: '2015 年 8 月 17 日，南派三叔以《十年》补完结局：吴邪与胖子再赴长白山，小哥从青铜门内出来。此句转引自新闻报道，原微博全文待核实。',
     source: '人民网 · 2015-08-18 报道', url: SRC.ten,
-    pos: new THREE.Vector3(-10, 3.6, -10), target: new THREE.Vector3(1.5, 9.5, -50), fov: 52,
+    pos: new THREE.Vector3(0, 8.5, 6), target: new THREE.Vector3(0, 13.0, -50), fov: 60,
     extra: '<div class="extra-row"><b>2015 · 拾年</b> 长白山 · 青铜门前</div><div class="extra-row"><b>原文</b> 转引自人民网报道，原微博全文待核实</div>',
   },
 };
@@ -116,7 +124,9 @@ renderer.setSize(innerWidth, innerHeight);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.NoToneMapping;
 renderer.toneMappingExposure = 1.0;
-renderer.shadowMap.enabled = false;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFShadowMap;
+renderer.shadowMap.autoUpdate = true;
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x05090b);
@@ -176,13 +186,34 @@ function setCard(n) {
     const btn = $('#replay6');
     if (btn) btn.addEventListener('click', (e) => { e.stopPropagation(); replay6(); });
   }
+  if (n === 3) {
+    ui.card.querySelectorAll('.rift-beat .beat').forEach((b) => {
+      b.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setRiftBeat(b.dataset.beat);
+      });
+    });
+    updateRiftUI(state.riftBeat);
+  }
+}
+
+function updateRiftUI(beat) {
+  if (state.node !== 3) return;
+  const idx = $('#node-index');
+  if (idx) idx.textContent = beat === 'floor' ? '03B' : '03A';
+  const title = $('#node-title');
+  if (title) title.textContent = beat === 'floor' ? '谷底行走' : '锁链俯视 · 照明弹';
+  ui.card.querySelectorAll('.rift-beat .beat').forEach((b) => {
+    b.classList.toggle('active', b.dataset.beat === beat);
+  });
+  window.__riftBeatName = beat + (state.riftWide ? '-wide' : '');
 }
 
 function nodeHud(n) {
   ui.scale.classList.toggle('hidden', n !== 4);
   ui.orbitHint.classList.toggle('hidden', n !== 5);
   ui.flareBtn.classList.toggle('hidden', n !== 3);
-  ui.hintExtra.textContent = n === 3 ? 'F 照明弹' : n === 5 ? '拖拽环视' : n === 6 ? '动画 52s' : '';
+  ui.hintExtra.textContent = n === 3 ? 'F 照明弹 · B 切换 3A/3B' : n === 5 ? '拖拽环视' : n === 6 ? '动画 52s' : '';
   ui.progress.style.width = `${(n / 7) * 100}%`;
 }
 
@@ -215,11 +246,12 @@ ui.sound.addEventListener('click', async () => {
 /*  World                                                              */
 /* ------------------------------------------------------------------ */
 let rift, valley, ghosts, flare, composer, bloomPass, finalPass, bloom;
-let flashlight, flashlightTarget;
+let flashlight, flashlightTarget, valleyLamp, valleyLampTarget;
 let cameraControls;
 const state = {
   node: 0, env: null, transitioning: false, token: 0, tween: null,
   controls: false, t6: 0, paused: false, quality,
+  riftBeat: 'high', riftWide: false, postEnabled: params.get('nopost') !== '1',
 };
 const tl = { burst: false, horn1: false, horn2: false, rumbleOpen: false, rumbleClose: false, impact: false };
 const mouse = new THREE.Vector2(0, 0);
@@ -252,13 +284,27 @@ function setupPost() {
 }
 
 function setupFlashlight() {
-  flashlight = new THREE.SpotLight(0xfff0d6, 4200, 140, D2R(25), 0.5, 1.4);
+  flashlight = new THREE.SpotLight(0xd9e7e0, 420, 70, D2R(27), 0.5, 1.4);
   flashlight.position.set(0, 0, 0);
   flashlightTarget = new THREE.Object3D();
   flashlightTarget.position.set(0, 6, -30);
   flashlight.target = flashlightTarget;
   flashlight.visible = false;
+  flashlight.castShadow = true;
+  flashlight.shadow.mapSize.set(512, 512);
+  flashlight.shadow.camera.near = 0.5;
+  flashlight.shadow.camera.far = 60;
+  flashlight.shadow.bias = -0.0008;
+  flashlight.shadow.normalBias = 0.035;
   rift.group.add(flashlight, flashlightTarget);
+}
+
+function setupValleyLamp() {
+  valleyLamp = new THREE.SpotLight(0xffe0bd, 900, 42, D2R(34), 0.65, 1.4);
+  valleyLampTarget = new THREE.Object3D();
+  valleyLamp.target = valleyLampTarget;
+  valleyLamp.visible = false;
+  scene.add(valleyLamp, valleyLampTarget);
 }
 
 /* ------------------------------------------------------------------ */
@@ -271,9 +317,9 @@ function setEnv(env) {
   ghosts.group.visible = false;
   rift.snow.points.visible = false;
   if (env === 'valley') {
-    scene.background.set(0x1f2b33);
-    scene.fog.color.set(0x80949d);
-    scene.fog.density = 0.007;
+    scene.background.set(0x131c22);
+    scene.fog.color.set(0x56686f);
+    scene.fog.density = 0.015;
     valley.setNode(state.node === 2 ? 2 : 1);
     rift.setEpilogue(false);
     rift.epilogueGroup.visible = false;
@@ -288,24 +334,44 @@ function setEnv(env) {
 
 function setRiftMood(n) {
   if (!rift) return;
-  const high = n === 7;
-  const close = n === 5;
-  rift.hemi.intensity = high ? 1.1 : n === 3 ? 1.1 : close ? 0.3 : 0.95;
-  rift.ambient.intensity = high ? 0.95 : n === 3 ? 1.0 : close ? 0.26 : 0.82;
-  rift.fill.intensity = high ? 1000 : n === 3 ? 2200 : close ? 340 : 780;
-  rift.shaftSpot.intensity = high ? 15000 : n === 3 ? 12000 : 8500;
-  rift.frameWash.intensity = high ? 2200 : n === 3 ? 1800 : close ? 500 : 4200;
-  rift.lintelWash.intensity = high ? 3000 : n === 3 ? 1600 : close ? 900 : 8500;
-  rift.thresholdPool.intensity = high ? 2000 : n === 3 ? 1800 : close ? 400 : 3000;
-  rift.doorSpotL.intensity = high ? 3000 : close ? 1600 : n === 3 ? 3400 : 4400;
-  rift.doorSpotR.intensity = high ? 2400 : close ? 1000 : n === 3 ? 2600 : 3100;
-  rift.thresholdLight.intensity = high ? 160 : 120;
-  rift.forecourt.intensity = high ? 2600 : close ? 1200 : n === 3 ? 2400 : 5200;
-  rift.pillarSpots.forEach(p => { p.intensity = high ? 2200 : close ? 1300 : n === 3 ? 1200 : 5200; });
-  rift.medallionFill.intensity = high ? 500 : close ? 140 : n === 3 ? 250 : 1500;
-  rift.medallionSpots.forEach(p => { p.intensity = high ? 500 : close ? 300 : n === 3 ? 250 : 1400; p.color.set(close ? 0xb9c9c1 : 0xd2c8ab); });
-  rift.ghostFill.intensity = n === 6 ? 900 : high ? 240 : 0;
-  rift.seamFill.intensity = n === 4 ? 420 : close ? 260 : high ? 80 : 0;
+  // explicit per-node exposure so 4–7 share one readable base instead of
+  // inheriting the old bright "door showcase" wash
+  const V = (a, b, c, d, e) => (n === 3 ? a : n === 4 ? b : n === 5 ? c : n === 6 ? d : e);
+  rift.hemi.intensity = V(0.72, 0.78, 0.32, 0.78, 1.02);
+  rift.ambient.intensity = V(0.55, 0.58, 0.28, 0.55, 0.88);
+  rift.fill.intensity = V(3000, 900, 320, 900, 1200);
+  rift.shaftSpot.intensity = V(11000, 7000, 6000, 7500, 14000);
+  rift.frameWash.intensity = V(1600, 700, 400, 1200, 1800);
+  rift.lintelWash.intensity = V(1500, 2600, 800, 2800, 3200);
+  rift.thresholdPool.intensity = V(1600, 900, 300, 1500, 1800);
+  rift.doorSpotL.intensity = V(2200, 1200, 900, 1800, 2400);
+  rift.doorSpotR.intensity = V(1500, 800, 500, 1200, 1600);
+  rift.thresholdLight.intensity = V(95, 90, 70, 110, 140);
+  rift.forecourt.intensity = V(1800, 1800, 800, 2400, 3000);
+  rift.pillarSpots.forEach(p => { p.intensity = V(900, 1800, 1000, 2000, 2400); });
+  rift.medallionFill.intensity = V(150, 80, 120, 200, 350);
+  rift.medallionSpots.forEach(p => {
+    p.intensity = V(200, 160, 260, 350, 450);
+    p.color.set(n === 5 ? 0xb9c9c1 : 0xd2c8ab);
+  });
+  rift.ghostFill.intensity = V(0, 0, 0, 1700, 200);
+  if (rift.chainRim) rift.chainRim.intensity = V(650, 0, 0, 1500, 200);
+  rift.seamFill.intensity = V(0, 260, 200, 0, 60);
+  rift.boneRake.intensity = V(3200, 2200, 300, 2200, 2200);
+  rift.boneFill.intensity = V(650, 800, 0, 600, 700);
+  rift.gateUnder.intensity = V(75, 160, 20, 90, 140);
+  rift.doorRake.intensity = V(2600, 3400, 200, 2200, 3000);
+  rift.portalKeyL.intensity = V(2200, 4300, 300, 2000, 2400);
+  rift.portalKeyR.intensity = V(1600, 3300, 220, 1500, 1800);
+  rift.lintelKey.intensity = V(1800, 3700, 300, 2000, 2600);
+  rift.nearFill.intensity = V(200, 450, 0, 300, 500);
+  if (rift.portalReveals) {
+    rift.portalReveals.forEach((l, i) => {
+      l.intensity = i % 2 === 0 ? V(240, 360, 45, 280, 380) : V(90, 150, 20, 110, 170);
+    });
+  }
+  if (rift.portalHalo) rift.portalHalo.material.opacity = V(0.24, 0.16, 0.06, 0.16, 0.26);
+  if (rift.shaft) rift.shaft.visible = n === 3;
 }
 
 function applyNodeView(n, immediate = false) {
@@ -317,6 +383,7 @@ function applyNodeView(n, immediate = false) {
   if (cameraControls) cameraControls.enabled = false;
   state.controls = false;
 
+  if (n === 3) updateRiftUI(state.riftBeat);
   if (d.env === 'valley') {
     if (state.env !== 'valley') setEnv('valley');
     valley.setNode(n);
@@ -325,11 +392,12 @@ function applyNodeView(n, immediate = false) {
     ghosts.group.visible = false;
     flare.reset();
     if (flashlight) flashlight.visible = false;
-    scene.fog.density = n === 1 ? 0.007 : 0.022;
-    scene.fog.color.set(n === 1 ? 0x80949d : 0x44564d);
-    scene.background.set(n === 1 ? 0x1f2b33 : 0x050807);
+    scene.fog.density = n === 1 ? 0.013 : 0.034;
+    scene.fog.color.set(n === 1 ? 0x4f616a : 0x46462f);
+    scene.background.set(n === 1 ? 0x131c22 : 0x070805);
   } else {
     if (state.env !== 'rift') setEnv('rift');
+    if (valleyLamp) valleyLamp.visible = false;
     valley.group.visible = false;
     rift.group.visible = true;
     setRiftMood(n);
@@ -339,9 +407,12 @@ function applyNodeView(n, immediate = false) {
     rift.setDoorOpen(0);
     rift.setTorchLevel(0);
     rift.setMistLevel(0);
+    if (n === 3) applyBeatMood(state.riftBeat);
     rift.setScaleVisible(n === 4);
     rift.snow.points.visible = false;
     ghosts.group.visible = n === 6;
+    ghosts.group.position.y = 0;
+    if (rift.chainGroup) rift.chainGroup.visible = n === 3;
     if (n === 6) {
       resetTimeline();
     } else {
@@ -355,7 +426,7 @@ function applyNodeView(n, immediate = false) {
       scene.fog.color.set(0x20373b);
       scene.fog.density = 0.011;
       scene.background.set(0x0d191c);
-      showSubtitle('走吧', '二〇一五 · 十年', 7200);
+      showSubtitle('走吧', '二〇一五 · 十年', 30000);
     } else {
       hideSubtitle();
     }
@@ -366,9 +437,14 @@ function applyNodeView(n, immediate = false) {
       scene.background.set(0x0a171b);
       scene.fog.color.set(0x182e33);
       scene.fog.density = 0.015;
+      if (immediate) window.__riftBeatName = state.riftBeat;
     } else {
       flashlight.visible = false;
       flare.reset();
+      if (rift) {
+        rift.setFlare(0);
+        if (n !== 3) setRiftMood(n);
+      }
     }
   }
 
@@ -391,6 +467,89 @@ function setCameraImmediate(n) {
   }
   camera.updateProjectionMatrix();
   camera.lookAt(lookTarget);
+}
+
+function applyBeatMood(beat) {
+  if (!rift || state.node !== 3) return;
+  const f = beat === 'floor';
+  rift.hemi.intensity = f ? 0.44 : 0.72;
+  rift.ambient.intensity = f ? 0.26 : 0.55;
+  rift.fill.intensity = f ? 600 : 3200;
+  rift.forecourt.intensity = f ? 450 : 2400;
+  rift.shaftSpot.intensity = f ? 3200 : 12000;
+  rift.boneRake.intensity = f ? 6800 : 3200;
+  rift.boneFill.intensity = f ? 2000 : 650;
+  rift.gateUnder.intensity = f ? 210 : 75;
+  rift.doorSpotL.intensity = f ? 550 : 3000;
+  rift.doorSpotR.intensity = f ? 300 : 2200;
+  rift.doorRake.intensity = f ? 5200 : 2800;
+  rift.portalKeyL.intensity = f ? 6200 : 2400;
+  rift.portalKeyR.intensity = f ? 4600 : 1800;
+  rift.lintelKey.intensity = f ? 5000 : 2000;
+  rift.nearFill.intensity = f ? 1000 : 200;
+  if (rift.portalReveals) {
+    rift.portalReveals.forEach((l, i) => { l.intensity = i % 2 === 0 ? (f ? 420 : 240) : (f ? 150 : 90); });
+  }
+  if (rift.shaft) {
+    rift.shaft.visible = f;
+    rift.shaftMat.uniforms.uOpacity.value = 0.035;
+  }
+  rift.frameWash.intensity = f ? 350 : 1800;
+  rift.lintelWash.intensity = f ? 500 : 1600;
+  rift.thresholdPool.intensity = f ? 220 : 1800;
+  rift.thresholdLight.intensity = f ? 90 : 120;
+  rift.medallionFill.intensity = f ? 35 : 250;
+  rift.medallionSpots.forEach(p => { p.intensity = f ? 45 : 250; });
+  rift.pillarSpots.forEach(p => { p.intensity = f ? 550 : 1200; });
+  rift.groundMist.setIntensity(f ? 1.5 : 1.0);
+  rift.doorMist.setIntensity(f ? 0.22 : 0);
+  rift.doorMist.group.visible = f;
+  if (rift.portalHalo) rift.portalHalo.material.opacity = f ? 0.26 : 0.24;
+  if (flashlight) {
+    flashlight.intensity = f ? 150 : 420;
+    flashlight.angle = f ? D2R(36) : D2R(27);
+    flashlight.distance = f ? 48 : 70;
+  }
+}
+
+function riftCamera(beat, wide = false) {
+  const d = NODES[3];
+  if (beat === 'floor') return { pos: d.posFloor, target: d.targetFloor, fov: d.fovFloor };
+  if (wide) return { pos: d.posWide, target: d.targetWide, fov: d.fovWide };
+  return { pos: d.pos, target: d.target, fov: d.fov };
+}
+
+function setRiftBeat(beat = 'high', { immediate = false, wide = false } = {}) {
+  if (!NODES[3]) return;
+  beat = (beat === 'floor' || beat === 0 || beat === 'b' || beat === 2) ? 'floor' : 'high';
+  state.riftBeat = beat;
+  state.riftWide = !!wide && beat === 'high';
+  const cam = riftCamera(beat, state.riftWide);
+  if (immediate || state.node !== 3) {
+    if (state.node === 3) {
+      camera.position.copy(cam.pos);
+      lookTarget.copy(cam.target);
+      camera.fov = cam.fov;
+      camera.updateProjectionMatrix();
+      camera.lookAt(lookTarget);
+      state.tween = null;
+    }
+  } else {
+    state.tween = {
+      from: { pos: camera.position.clone(), target: lookTarget.clone(), fov: camera.fov },
+      to: { pos: cam.pos.clone(), target: cam.target.clone(), fov: cam.fov },
+      start: performance.now(), dur: 1150,
+    };
+  }
+  updateRiftUI(beat);
+  if (state.node === 3) {
+    applyBeatMood(beat);
+    if (rift.chainGroup) rift.chainGroup.visible = beat !== 'floor';
+    if (beat === 'floor' && flare) {
+      flare.reset();
+      if (rift) rift.setFlare(0);
+    }
+  }
 }
 
 function startCameraTween(toNode, duration = 2200) {
@@ -423,7 +582,11 @@ function updateTween() {
 
 async function goTo(n, { immediate = false } = {}) {
   if (!NODES[n]) return;
-  if (state.node === n && !immediate) return;
+  if (state.node === n && !immediate) {
+    if (n === 3) setRiftBeat('high');
+    return;
+  }
+  if (n === 3) { state.riftBeat = 'high'; state.riftWide = false; }
   const myToken = ++state.token;
   state.transitioning = true;
   window.__nodeSettled = false;
@@ -660,7 +823,6 @@ function triggerFlare() {
   audio.impact();
   setTimeout(() => {
     ui.flareBtn.classList.remove('cool');
-    if (state.node === 3) toast('照明弹已熄灭');
   }, 10000);
 }
 ui.flareBtn.addEventListener('click', triggerFlare);
@@ -693,6 +855,8 @@ addEventListener('keydown', (e) => {
     if (!state.transitioning) goTo(clampNode(state.node - 1));
   } else if (e.key === 'f' || e.key === 'F') {
     triggerFlare();
+  } else if (e.key === 'b' || e.key === 'B') {
+    if (state.node === 3) setRiftBeat(state.riftBeat === 'floor' ? 'high' : 'floor');
   } else if (e.key === 'r' || e.key === 'R') {
     if (state.node === 6) replay6();
   } else if (/^[1-7]$/.test(e.key)) {
@@ -728,9 +892,9 @@ function updateFlashlight(dt) {
   const up = new THREE.Vector3().crossVectors(right, dir).normalize();
   flashlight.position.copy(camera.position).addScaledVector(dir, 0.6).addScaledVector(up, -0.25);
   const target = new THREE.Vector3().copy(camera.position)
-    .addScaledVector(dir, 34)
+    .addScaledVector(dir, state.riftBeat === 'floor' ? 22 : 34)
     .addScaledVector(right, smoothMouse.x * 24)
-    .addScaledVector(up, smoothMouse.y * 15 + 6.0);
+    .addScaledVector(up, smoothMouse.y * 15 + (state.riftBeat === 'floor' ? 0.6 : 6.0));
   flashlightTarget.position.lerp(target, Math.min(1, dt * 3.2));
   flashlightTarget.updateMatrixWorld();
   // keep the beam from pointing into the ceiling
@@ -752,7 +916,22 @@ function animate() {
   if (state.controls && cameraControls) cameraControls.update(dt);
 
   updateFlashlight(dt);
-  if (flare) flare.update(dt);
+  if (valleyLamp && valleyLamp.visible) {
+    const dir = new THREE.Vector3();
+    camera.getWorldDirection(dir);
+    valleyLamp.position.copy(camera.position).addScaledVector(dir, 0.5);
+    valleyLampTarget.position.copy(camera.position).addScaledVector(dir, 14);
+    valleyLampTarget.position.y -= 2.4;
+    valleyLampTarget.updateMatrixWorld();
+  }
+  if (flare) {
+    flare.update(dt);
+    if (rift && state.node === 3) {
+      rift.setFlare(flare.level || 0);
+      const fogBase = state.riftBeat === 'floor' ? 0.017 : 0.015;
+      scene.fog.density = fogBase - 0.0018 * (flare.level || 0);
+    }
+  }
   if (state.node === 6 && ghosts && ghosts.zhangRoot.visible) {
     const T = state.t6;
     const wp = ghosts.zhangRoot.position.clone();
@@ -780,7 +959,7 @@ function animate() {
     // during the entrance tween leave the authored camera alone
   }
 
-  if (composer) composer.render();
+  if (composer && state.postEnabled) composer.render();
   else renderer.render(scene, camera);
   if (!window.__ready && snapFrame++ > 1) {
     window.__ready = true;
@@ -812,6 +991,14 @@ function seek6(t) {
 window.__goto = (n) => goTo(Number(n));
 window.__seek6 = seek6;
 window.__flare = triggerFlare;
+window.__riftBeat = (b, immediate = false) => setRiftBeat(b, { immediate });
+window.__riftView = (v) => {
+  if (v === 'floor' || v === '3b' || v === 2) setRiftBeat('floor', { immediate: true });
+  else if (v === 'wide' || v === 'overhead') setRiftBeat('high', { immediate: true, wide: true });
+  else setRiftBeat('high', { immediate: true });
+};
+window.__setPost = (on) => { state.postEnabled = !!on; };
+window.__postEnabled = () => state.postEnabled;
 window.__replay6 = replay6;
 window.__quality = quality;
 window.__three = { THREE, scene, camera, renderer, get rift() { return rift; }, get valley() { return valley; }, get ghosts() { return ghosts; } };
@@ -852,6 +1039,7 @@ async function boot() {
     await tick(30);
     flare = new Flare(rift.group);
     setupFlashlight();
+    setupValleyLamp();
     setupPost();
     setProgress(92, '点灯 · 调色 · 落雪');
     await tick(50);

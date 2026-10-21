@@ -6,7 +6,7 @@ const { PNG } = require('pngjs');
 const ROOT = path.resolve(__dirname, '..');
 const SHOTS = path.join(ROOT, 'shots');
 const files = fs.readdirSync(SHOTS)
-  .filter(f => f.endsWith('.png') && /^(node\d|node6-(open|enter|close)|node3-flare)\.png$/.test(f))
+  .filter(f => f.endsWith('.png') && /^(node\d|node6-(open|enter|close)|node3-(flare|overhead|floor))\.png$/.test(f))
   .sort();
 
 const images = [];

@@ -55,7 +55,7 @@ async function main() {
   fs.mkdirSync(SHOTS, { recursive: true });
   // Only final names are retained; remove debug/test artefacts.
   for (const f of fs.readdirSync(SHOTS)) {
-    if (f.endsWith('.png') && !/^(node\d|node6-(open|enter|close)|node3-flare)\.png$/.test(f)) {
+    if (f.endsWith('.png') && !/^(node\d|node6-(open|enter|close)|node3-(flare|overhead|floor))\.png$/.test(f)) {
       fs.unlinkSync(path.join(SHOTS, f));
     }
   }
@@ -78,7 +78,7 @@ async function main() {
   console.log(`booted in ${((Date.now() - t0) / 1000).toFixed(1)}s`);
 
   const shot = async (name) => {
-    await page.screenshot({ path: path.join(SHOTS, `${name}.png`) });
+    await page.screenshot({ path: path.join(SHOTS, `${name}.png`), timeout: 120000 });
     console.log('shot', name);
   };
 
@@ -87,10 +87,23 @@ async function main() {
     await page.waitForFunction((n) => window.__nodeSettled === true && window.__node === n, n, { timeout: 60000 });
     await sleep(2600);
     if (n === 3) {
+      // 3A — hanging chains, look down into the dark rift
       await shot('node3');
+      // explicit overhead frame (wider high view, still unlit)
+      await page.evaluate(() => window.__riftView('wide'));
+      await sleep(1400);
+      await shot('node3-overhead');
+      // flare peak, from the default 3A view (also exercises __riftBeat(1))
+      await page.evaluate(() => window.__riftBeat(1, true));
+      await sleep(900);
       await page.evaluate(() => window.__flare());
-      await sleep(1600);
+      await sleep(1700);
       await shot('node3-flare');
+      // let the flare die before the 3B floor frame
+      await sleep(8600);
+      await page.evaluate(() => window.__riftBeat('floor', true));
+      await sleep(1500);
+      await shot('node3-floor');
       continue;
     }
     if (n === 6) {

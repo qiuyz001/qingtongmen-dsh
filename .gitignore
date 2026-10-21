@@ -7,7 +7,7 @@ node_modules/
 .data/
 .config/
 *.zip
-ship-response.json
+ship-response*.json
 *.pid
 .DS_Store
 *.log

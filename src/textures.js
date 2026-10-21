@@ -40,6 +40,33 @@ function makeTexture(cv, { srgb = true, repeat = [1, 1], wrap = THREE.MirroredRe
   return t;
 }
 
+// Derive a tangent-space normal map from a grayscale height canvas.
+// v3: the cliff / volcanic rock get a real normal map instead of relying on
+// one low-frequency bump, so raking light breaks up the 30 m face.
+function normalMapFromCanvas(cv, strength = 2.0) {
+  const w = cv.width, h = cv.height;
+  const src = cv.getContext('2d').getImageData(0, 0, w, h).data;
+  const out = canvas(w, h);
+  const ctx = out.getContext('2d');
+  const img = ctx.createImageData(w, h);
+  const lum = (x, y) => src[((((y + h) % h) * w) + ((x + w) % w)) * 4] / 255;
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const dx = (lum(x + 1, y) - lum(x - 1, y)) * strength;
+      const dy = (lum(x, y + 1) - lum(x, y - 1)) * strength;
+      let nx = -dx, ny = -dy, nz = 1;
+      const len = Math.hypot(nx, ny, nz) || 1;
+      const i = (y * w + x) * 4;
+      img.data[i] = Math.round((nx / len * 0.5 + 0.5) * 255);
+      img.data[i + 1] = Math.round((ny / len * 0.5 + 0.5) * 255);
+      img.data[i + 2] = Math.round((nz / len * 0.5 + 0.5) * 255);
+      img.data[i + 3] = 255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  return makeTexture(out, { srgb: false, repeat: [3, 3], aniso: 8 });
+}
+
 function noiseFill(cv, w, h, fn) {
   const ctx = cv.getContext('2d');
   const img = ctx.createImageData(w, h);
@@ -628,6 +655,7 @@ export function makeRockTextures(seed = 12) {
   return {
     map: makeTexture(col, { repeat: [3, 3] }),
     bump: makeTexture(hgt, { srgb: false, repeat: [3, 3] }),
+    normal: normalMapFromCanvas(hgt, 2.2),
     roughness: makeTexture(rgh, { srgb: false, repeat: [3, 3] }),
   };
 }
