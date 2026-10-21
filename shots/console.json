@@ -1,0 +1,8 @@
+{
+  "errors": [],
+  "pageErrors": [],
+  "total": 0,
+  "note": "console error / pageerror only. WebGL performance warnings are not errors.",
+  "capturedAt": "2026-10-20T11:24:55.493Z",
+  "url": "http://127.0.0.1:4173/?quality=high"
+}

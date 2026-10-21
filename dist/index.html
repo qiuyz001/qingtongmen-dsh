@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#070b0d" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23080d0e'/%3E%3Ctext x='32' y='45' font-size='42' text-anchor='middle' fill='%237fb3a2'%3E%E9%96%80%3C/text%3E%3C/svg%3E" />
+    <title>青铜门 · 长白山 | 《盗墓笔记》程序化场景</title>
+    <meta name="description" content="以 three.js 全程序化重建《盗墓笔记》长白山青铜门：雪谷、温泉、地下裂谷、门纹、阴兵借道与十年。" />
+    <script type="module" crossorigin src="/assets/index-ChNTFtV1.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DgJ_sJU3.css">
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene"></canvas>
+      <div id="grain"></div>
+      <div id="vignette"></div>
+      <div id="fade"></div>
+      <header id="brand">
+        <div class="brand-mark">青銅</div>
+        <div class="brand-text">
+          <h1>青铜门<span>·</span>长白山</h1>
+          <p>《盗墓笔记》场景还原 · 全程序化 three.js</p>
+        </div>
+      </header>
+      <button id="sound" class="round-btn" aria-label="音效开关" title="音效开关">
+        <span class="sound-icon">◌</span><span class="sound-label">音效</span>
+      </button>
+      <aside id="card" aria-live="polite">
+        <div class="card-kicker"><span id="node-index">01</span><i></i><span id="node-env">雪谷</span></div>
+        <h2 id="node-title">雪谷入口</h2>
+        <p id="node-chapter" class="chapter"></p>
+        <blockquote id="node-quote"></blockquote>
+        <p id="node-note" class="note"></p>
+        <div class="card-foot">
+          <span class="source-label">出处</span>
+          <a id="node-source" href="#" target="_blank" rel="noopener">—</a>
+        </div>
+        <div id="node-extra" class="node-extra"></div>
+      </aside>
+      <div id="scale-card" class="hud-card hidden">
+        <div class="scale-figure"></div>
+        <div class="scale-body">
+          <strong>门体 30 × 60 m</strong>
+          <span>高 30 m · 宽近 60 m · 上万吨重</span>
+          <span>画面中的人物剪影高 1.75 m</span>
+        </div>
+      </div>
+      <div id="orbit-hint" class="hud-hint hidden">拖拽旋转 · 滚轮缩放 · 双击复位</div>
+      <div id="flare-btn" class="hud-btn hidden"><kbd>F</kbd> 发射照明弹<span class="cooldown"></span></div>
+      <div id="subtitle"></div>
+      <div id="zhang-tag"><span class="tag-name">张起灵 · 黑金古刀 · 鬼玺</span><span class="tag-sub">闷油瓶 · 混在阴兵队中</span><span class="tag-stem"></span></div>
+      <div id="toast"></div>
+      <nav id="rail" aria-label="节点导航">
+        <button class="arrow" id="prev" aria-label="上一节点">←</button>
+        <div id="dots"></div>
+        <button class="arrow" id="next" aria-label="下一节点">→</button>
+      </nav>
+      <div id="hints"><span><kbd>←</kbd><kbd>→</kbd> 切换节点</span><span><kbd>滚轮</kbd> 推进</span><span id="hint-extra"></span></div>
+      <div id="progress"><i></i></div>
+      <div id="loader">
+        <div class="loader-inner">
+          <div class="loader-glyph">門</div>
+          <p class="loader-title">正在铸门</p>
+          <div class="loader-bar"><i id="loadbar"></i></div>
+          <p class="loader-note" id="loadnote">凿刻云雷纹 · 凝冻人皮 · 点燃火光</p>
+        </div>
+      </div>
+      <div id="error-panel" class="hidden"><h2>渲染遇到问题</h2><p id="error-msg"></p></div>
+    </div>
+  </body>
+</html>

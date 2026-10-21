@@ -1,0 +1,15 @@
+node_modules/
+.pnpm-store/
+.npm-cache/
+.pnpm-home/
+.cache/
+.state/
+.data/
+.config/
+*.zip
+ship-response.json
+*.pid
+.DS_Store
+*.log
+.env
+.env.*
